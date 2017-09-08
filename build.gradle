@@ -1,0 +1,62 @@
+task wrapper(type: Wrapper) {
+    gradleVersion = "2.14.1"
+    distributionUrl = "https://services.gradle.org/distributions/gradle-" + gradleVersion + "-all.zip"
+}
+
+buildscript {
+    apply from: "https://github.com/rosjava/rosjava_bootstrap/raw/kinetic/buildscript.gradle"
+    dependencies {
+        classpath "com.android.tools.build:gradle:2.2.3"
+    }
+}
+
+subprojects {
+
+    apply plugin: "ros-android"
+
+    afterEvaluate { project ->
+        android {
+            compileSdkVersion 25
+            buildToolsVersion "25.0.3"
+
+            sourceSets {
+                main {
+                    manifest.srcFile "AndroidManifest.xml"
+                    res.srcDirs "res"
+                    assets.srcDirs "assets"
+                    java.srcDirs "src"
+                    jniLibs.srcDirs "lib"
+                }
+            }
+
+            buildTypes {
+                all {
+                    resValue "string", "app_string_name", name
+                }
+                debug{
+                    //noinspection GroovyAssignabilityCheck
+                    resValue "string", "full_app_name", name
+                }
+                release {
+                    //noinspection GroovyAssignabilityCheck
+                    resValue "string", "full_app_name", name
+                }
+            }
+
+            // Exclude a few files that are duplicated across our dependencies and
+            // prevent packaging Android applications.
+            packagingOptions {
+                //from https://github.com/rosjava/android_core/issues/194
+                exclude "META-INF/LICENSE.txt"
+                exclude "META-INF/NOTICE.txt"
+
+                //from https://github.com/bytedeco/javacpp-presets/issues/220
+                exclude "META-INF/services/javax.annotation.processing.Processor"
+                pickFirst  "META-INF/maven/org.bytedeco.javacpp-presets/opencv/pom.properties"
+                pickFirst  "META-INF/maven/org.bytedeco.javacpp-presets/opencv/pom.xml"
+            }
+        }
+    }
+}
+
+defaultTasks "jar" , "publishMavenJavaPublicationToMavenRepository" , "assembleRelease", "uploadArchives"

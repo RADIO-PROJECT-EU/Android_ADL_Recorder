@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="radio.gstavrinos.android_adl_recorder">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <application
+        android:label="@string/app_name"
+        android:allowBackup="true"
+        android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity
+            android:name="radio.gstavrinos.android_adl_recorder.MainActivity"
+            android:label="@string/app_string_name"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="org.ros.android.MasterChooser"
+            tools:replace="android:label"
+            android:label="ADL Recorder"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"/>
+
+        <service android:name="org.ros.android.NodeMainExecutorService" >
+            <intent-filter>
+                <action android:name="org.ros.android.NodeMainExecutorService" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>

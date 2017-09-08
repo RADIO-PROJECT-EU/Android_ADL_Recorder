@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select ADL:"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/adl_text"/>
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/adl_text"
+        android:id="@+id/adl_selection">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4-meter Walking"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chair Transfer"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bed Transfer"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pill Intake"/>
+        </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ADL code name:"
+        android:layout_toRightOf="@id/adl_selection"
+        android:layout_marginLeft="10dp"
+        android:layout_alignTop="@id/adl_text"
+        android:id="@+id/adl_code"/>
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/adl_selection"
+        android:layout_alignStart="@id/adl_code"
+        android:layout_alignLeft="@id/adl_code"
+        android:ems="10"
+        android:lines="1"
+        android:hint="ADL Code Name" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:lines="1"
+        android:layout_alignStart="@id/adl_code"
+        android:layout_alignLeft="@id/adl_code"
+        android:hint="Repetition"
+        android:layout_alignBottom="@id/adl_selection"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Repetition"
+        android:layout_toRightOf="@id/adl_selection"
+        android:layout_toEndOf="@id/adl_selection"
+        android:layout_above="@id/editText2"
+        android:layout_alignStart="@id/adl_code"
+        android:layout_alignLeft="@id/adl_code"
+        android:id="@+id/adl_repetition"/>
+
+    <Button
+        android:id="@+id/start_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Start"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/adl_selection"
+        android:onClick="handleRecording"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00:00.000"
+        android:id="@+id/time"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/start_button"
+        android:layout_marginTop="20dp"
+        android:textSize="50sp"/>
+
+    <Button
+        android:id="@+id/timer_start_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Start"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/holo_green_light"
+        android:layout_below="@id/time"
+        android:textColor="@android:color/black"
+        android:onClick="handleTimer"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/timer_start_button"
+        android:layout_marginTop="5dp"
+        android:fadeScrollbars="false"
+        android:id="@+id/scroll">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/past_times">
+
+        </TableLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
