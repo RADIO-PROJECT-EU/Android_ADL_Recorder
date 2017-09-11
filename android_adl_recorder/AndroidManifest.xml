@@ -13,7 +13,8 @@
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
             android:name="radio.gstavrinos.android_adl_recorder.MainActivity"
-            android:label="@string/app_string_name"
+            android:label="RADIO ADL Recorder"
+            android:icon="@drawable/radio_background"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden">>
             <intent-filter>
