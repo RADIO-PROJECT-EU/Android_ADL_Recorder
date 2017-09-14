@@ -93,6 +93,8 @@ public class MainActivity extends RosActivity implements NodeMain{
         scroll = (ScrollView) findViewById(R.id.scroll);
 
         start_timer.setBackgroundColor(Color.GREEN);
+        start_timer.setEnabled(false);
+        start_timer.setAlpha(0.5f);
 
         adl_selection.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -105,7 +107,7 @@ public class MainActivity extends RosActivity implements NodeMain{
         adl_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(adl_start.getText().equals("Start")){
+                if(adl_start.getText().equals("Start Robot")){
                     if (publisher == null) {
                         new AlertDialog.Builder(MainActivity.this)
                                 .setTitle("Not initialized!")
@@ -117,6 +119,10 @@ public class MainActivity extends RosActivity implements NodeMain{
                                 .show();
                     }
                     else{
+                        start_timer.setEnabled(true);
+                        start_timer.setAlpha(1f);
+                        adl_start.setEnabled(false);
+                        adl_start.setAlpha(0.5f);
                         adl_code = code_name.getText().toString();
                         adl_repetition = repetition.getText().toString();
                         if(!adl_number.isEmpty() && !adl_code.isEmpty() && !adl_repetition.isEmpty()) {
@@ -134,7 +140,7 @@ public class MainActivity extends RosActivity implements NodeMain{
                                 String s_msg = publisher.newMessage();
                                 s_msg.setData(adl_number + "#" + adl_code + "#" + adl_repetition);
                                 publisher.publish(s_msg);
-                                adl_start.setText("Stop");
+                                adl_start.setText("Stop Robot");
                                 for(int i=0;i < adl_selection.getChildCount();i++){
                                     if(Integer.parseInt(adl_number)-1 == i){
                                         (adl_selection.getChildAt(i)).setEnabled(true);
@@ -165,7 +171,7 @@ public class MainActivity extends RosActivity implements NodeMain{
                     java.lang.String adl_number_ = min(Integer.parseInt(adl_number) + 10, 13)+"";
                     s_msg.setData(adl_number_ + "#" + adl_code + "#" + adl_repetition);
                     publisher.publish(s_msg);
-                    adl_start.setText("Start");
+                    adl_start.setText("Start Robot");
                     for(int i=0;i < adl_selection.getChildCount();i++){
                         if(Integer.parseInt(adl_number) == i){
                             (adl_selection.getChildAt(i)).setEnabled(true);
@@ -227,15 +233,17 @@ public class MainActivity extends RosActivity implements NodeMain{
     }
 
     public void handleTimer(View v){
-        if(start_timer.getText().equals("Start")){
+        if(start_timer.getText().equals("Start Timer")){
             startTime = System.currentTimeMillis();
             mHandler.removeCallbacks(startTimer);
             mHandler.postDelayed(startTimer, 0);
-            start_timer.setText("Pause");
+            start_timer.setText("Stop Timer");
             start_timer.setBackgroundColor(Color.YELLOW);
+            adl_start.setEnabled(false);
+            adl_start.setAlpha(0.5f);
         }
-        else if(start_timer.getText().equals("Pause")){
-            start_timer.setText("Reset");
+        else if(start_timer.getText().equals("Stop Timer")){
+            start_timer.setText("Save");
             mHandler.removeCallbacks(startTimer);
             start_timer.setBackgroundColor(Color.RED);
         }
@@ -274,8 +282,12 @@ public class MainActivity extends RosActivity implements NodeMain{
                     scroll.fullScroll(View.FOCUS_DOWN);
                 }
             });
-            start_timer.setText("Start");
+            start_timer.setText("Start Timer");
             time.setText("00:00:00.000");
+            start_timer.setEnabled(false);
+            start_timer.setAlpha(0.5f);
+            adl_start.setEnabled(true);
+            adl_start.setAlpha(1f);
         }
     }
 
