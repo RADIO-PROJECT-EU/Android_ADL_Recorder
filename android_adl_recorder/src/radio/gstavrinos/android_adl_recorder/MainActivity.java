@@ -110,8 +110,8 @@ public class MainActivity extends RosActivity implements NodeMain{
                 if(adl_start.getText().equals("Start Robot")){
                     if (publisher == null) {
                         new AlertDialog.Builder(MainActivity.this)
-                                .setTitle("Not initialized!")
-                                .setMessage("Please wait a bit longer before pressing the start button for the first time!")
+                                .setTitle("Connection error!")
+                                .setMessage("There was a connection error. Please check your network settings!")
                                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {}
                                 })
@@ -119,12 +119,6 @@ public class MainActivity extends RosActivity implements NodeMain{
                                 .show();
                     }
                     else{
-                        start_timer.setEnabled(true);
-                        start_timer.setAlpha(1f);
-                        adl_start.setEnabled(false);
-                        adl_start.setAlpha(0.5f);
-                        adl_code = code_name.getText().toString();
-                        adl_repetition = repetition.getText().toString();
                         if(!adl_number.isEmpty() && !adl_code.isEmpty() && !adl_repetition.isEmpty()) {
                             if(adl_code.contains("#") || adl_repetition.contains("#")){
                                 new AlertDialog.Builder(MainActivity.this)
@@ -137,6 +131,12 @@ public class MainActivity extends RosActivity implements NodeMain{
                                         .show();
                             }
                             else {
+                                start_timer.setEnabled(true);
+                                start_timer.setAlpha(1f);
+                                adl_start.setEnabled(false);
+                                adl_start.setAlpha(0.5f);
+                                adl_code = code_name.getText().toString();
+                                adl_repetition = repetition.getText().toString();
                                 String s_msg = publisher.newMessage();
                                 s_msg.setData(adl_number + "#" + adl_code + "#" + adl_repetition);
                                 publisher.publish(s_msg);
