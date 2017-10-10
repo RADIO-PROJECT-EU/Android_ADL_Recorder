@@ -119,6 +119,8 @@ public class MainActivity extends RosActivity implements NodeMain{
                                 .show();
                     }
                     else{
+                        adl_code = code_name.getText().toString();
+                        adl_repetition = repetition.getText().toString();
                         if(!adl_number.isEmpty() && !adl_code.isEmpty() && !adl_repetition.isEmpty()) {
                             if(adl_code.contains("#") || adl_repetition.contains("#")){
                                 new AlertDialog.Builder(MainActivity.this)
